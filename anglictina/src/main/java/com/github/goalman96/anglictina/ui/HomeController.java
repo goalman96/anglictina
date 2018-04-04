@@ -3,6 +3,14 @@ package com.github.goalman96.anglictina.ui;
 import java.util.Observable;
 import java.util.Observer;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 
 import com.github.goalman96.anglictina.logika.*;
 
@@ -10,38 +18,32 @@ import com.github.goalman96.anglictina.logika.*;
  * Kontroler, který zprostředkovává komunikaci mezi grafikou
  * a logikou adventury
  * 
- * @author Filip Vencovsky, Tibor Vondrasek
+ * @author Tibor Vondrasek
  *
  */
-public class HomeController extends GridPane implements Observer {
+public class HomeController extends VBox implements Observer {
 	
-	@FXML private TextField vstupniText;
-	@FXML private TextArea vystup;
-	@FXML private ListView<Predmet> seznamVeciMistnost;
-	@FXML private ListView<Prostor> seznamVychodu;
-    @FXML private ListView<Object> seznamVeciBatoh;
-	@FXML private ImageView uzivatel;
+	@FXML private Button jablkoButton;
+	@FXML private Button hruskaButton;
+	@FXML private Button jahodaButton;
+	@FXML private Button bananButton;
+	@FXML private Button pomerancButton;
+	@FXML private Button ananasButton;
+	@FXML private Label hadejLabel;
+	@FXML private Label spravneLabel;
+	@FXML private Label spatneLabel;
 	
         
         
         private ObservableList<Object> veciBatoh = FXCollections.observableArrayList();
-	private IHra hra;
+	private Hra hra;
 	
 	/**
 	 * metoda čte příkaz ze vstupního textového pole
 	 * a zpracuje ho
 	 */
-	@FXML public void odesliPrikaz() {
-		String vystupPrikazu = hra.zpracujPrikaz(vstupniText.getText());
-		vystup.appendText("\n----------\n"+vstupniText.getText()+"\n----------\n");
-		vystup.appendText(vystupPrikazu);
-		vstupniText.setText("");
-                hra.getHerniPlan().notifyObservers();
-		if(hra.konecHry()) {
-			vystup.appendText("\n----------\nKonec hry\n----------\n");
-			vstupniText.setDisable(true);
-		}
-                
+	@FXML public void hadej() {
+		hadejLabel           
 	}
 	
 	/**
@@ -49,8 +51,16 @@ public class HomeController extends GridPane implements Observer {
 	 * kontroleru a zobrazí stav hry v grafice.
 	 * @param objekt spuštěné hry
 	 */
-	public void inicializuj(IHra hra) {
-		vystup.setText(hra.vratUvitani());
+	public void inicializuj(Hra hra) {
+		Obrazek jablko = hra.
+		Image jablko = new Image(getClass().getResourceAsStream("/zdroje/"+.getObrazek()),200 , 200, false, false);
+		
+		Image kocka = new Image(getClass().getResourceAsStream("/zdroje/cat.jpg"),200 , 200, false, false);
+        Button kockaTlacitko = new Button("");
+        kockaTlacitko.setTooltip(new Tooltip("Kočka"));
+        kockaTlacitko.setUserData("Cat");
+        kockaTlacitko.setGraphic(new ImageView(kocka));
+	
 		vystup.setEditable(false);
 		this.hra = hra;
 		seznamVeciMistnost.getItems().addAll(hra.getHerniPlan().getAktualniProstor().getPredmety());

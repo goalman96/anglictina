@@ -1,7 +1,6 @@
 package com.github.goalman96.anglictina.ui;
 
-import com.github.filipvencovsky.adventura.logika.Hra;
-import com.github.filipvencovsky.adventura.logika.IHra;
+import com.github.goalman96.anglictina.logika.Hra;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -23,17 +22,7 @@ public class Application extends javafx.application.Application {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		if (args.length == 0) {
             launch(args);
-        } else {
-            if (args[0].equals("-text")) {
-                IHra hra = new Hra();
-                TextoveRozhrani ui = new TextoveRozhrani(hra);
-                ui.hraj();
-            } else {
-                System.out.println("Neplatný parametr");
-            }
-        }
 	}
 	/**
 	 * Metoda, ve které se konstruuje okno, kontroler a hra,
