@@ -18,18 +18,22 @@ public class Hra extends Observable {
     private Obrazek pomeranc;
     private Obrazek ananas;
     private ArrayList<Obrazek> obrazky;
+    private Random randomGenerator;
+    private int scoreSpravne;
+    private int scoreSpatne;
+    private Obrazek nahodnyObrazek;
+    private Obrazek tipnutyObrazek;
+    private String alertText;
     
-     /**
-     *  Konstruktor který vytváří jednotlivé prostory a propojuje je pomocí východů.
-     *  Jako výchozí aktuální prostor nastaví halu.
-     */
+     
     public Hra() {
+    	randomGenerator = new Random();
+    	obrazky = new ArrayList<Obrazek>();
         zalozHru();
-        obrazky = new ArrayList<Obrazek>();
 
     }
     /**
-     *  Vytváří jednotlivé prostory a propojuje je pomocí východů.
+     *  Vytváří obrázky a  
      *  Jako výchozí aktuální prostor nastaví domeček.
      */
     private void zalozHru() {
@@ -45,13 +49,30 @@ public class Hra extends Observable {
         obrazky.add(banan);
         obrazky.add(pomeranc);
         obrazky.add(ananas);
+        scoreSpravne = 0;
+        scoreSpatne = 0;
         
     }
     
-    public Obrazek getNahodnyObrazek(Obrazek[] obrazky) {
-    	Random generator = new Random();
-    	int randomIndex = generator.nextInt(obrazky.length);
-    	return obrazky[randomIndex];
+    public void vylosujObrazek() {
+    	int index = randomGenerator.nextInt(obrazky.size());
+        this.nahodnyObrazek = obrazky.get(index);
+    }
+    public Obrazek getNahodnyObrazek() {
+    	return this.nahodnyObrazek;
+    }
+    
+    public void setTipnutyObrazek(Obrazek obrazek) {
+    	this.tipnutyObrazek = obrazek;
+        notifyObservers();
+    }
+    public void porovnejObrazky() {
+    	if(nahodnyObrazek.equals(tipnutyObrazek)) {
+    		zvysScoreSpravne();
+    	}
+    	else {
+    		zvysScoreSpatne();
+    	}
     }
     
     public Obrazek getJablko() {
@@ -76,6 +97,39 @@ public class Hra extends Observable {
     
     public Obrazek getAnanas() {
     	return this.ananas;
+    }
+    
+    public String ScoreSpravneToString() {
+    	return String.valueOf(scoreSpravne);
+    }
+    
+    public String ScoreSpatneToString() {
+    	return String.valueOf(scoreSpatne);
+    }
+    
+    public void zvysScoreSpravne() {
+    	alertText = "Správně!";
+    	this.scoreSpravne++;
+    }
+    
+    public void zvysScoreSpatne() {
+    	alertText = "Špatný obrázek";
+    	this.scoreSpatne++;
+    	
+    }
+    public void vymazScore() {
+    	this.scoreSpravne = 0;
+    	this.scoreSpatne = 0;
+    }
+    
+    public String getAlertText() {
+    	return alertText;
+    }
+    
+    @Override
+    public void notifyObservers(){
+        setChanged();
+        super.notifyObservers();
     }
 }
 

@@ -12,7 +12,7 @@ import javafx.stage.Stage;
  * Při spuštění bez parametru konstruuje okno aplikace,
  * s parametrem -text se spouští v textovém režimu
  * 
- * @author Filip Vencovsky
+ * @author Tibor Vondrasek
  *
  */
 public class Application extends javafx.application.Application {
@@ -33,8 +33,7 @@ public class Application extends javafx.application.Application {
 //		Parent root = FXMLLoader.load(getClass().getResource("Home.fxml"));
 		
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass()
-		          .getResource("Home.fxml"));
+		loader.setLocation(getClass().getResource("Home.fxml"));
 		Parent root = loader.load();
 
 		HomeController controller = loader.getController();

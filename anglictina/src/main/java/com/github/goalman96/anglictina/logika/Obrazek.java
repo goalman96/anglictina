@@ -45,4 +45,8 @@ public class Obrazek {
     	return this.anglickyNazev;
     }
     
+    public String getObrazek() {
+    	return this.obrazek;
+    }
+    
 }
